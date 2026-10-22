@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Brand palette — taken from the Stream Resort brochure */
+  --color-aqua-50: #f2fafb;
+  --color-aqua-100: #e8f6f8;
+  --color-aqua-200: #c9ecf0;
+  --color-aqua-300: #9adbe3;
+  --color-aqua-400: #3bbfce;
+  --color-aqua-500: #2aa9b9;
+  --color-aqua-600: #1e8e9e;
+  --color-aqua-700: #187382;
+  --color-aqua-800: #145c68;
+  --color-aqua-900: #0f434c;
+  --color-ink: #2b2d2f;
+  --color-ink-soft: #5d6468;
+  --color-laterite: #a5432f;
+  --color-sand: #f7f3ec;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), ui-serif, Georgia, serif;
+  --font-brand: var(--font-cinzel), var(--font-lora), serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --shadow-soft: 0 10px 30px -12px rgb(15 67 76 / 0.18);
+  --shadow-lift: 0 22px 50px -20px rgb(15 67 76 / 0.35);
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-white font-sans text-[15px] leading-relaxed text-ink antialiased sm:text-base;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif text-ink;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-aqua-200 text-aqua-900;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-aqua-500;
+  }
+}
+
+@utility container-site {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility eyebrow {
+  @apply font-sans text-xs font-medium tracking-[0.18em] text-aqua-600 uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
